@@ -84,3 +84,46 @@ JOIN offices
 on employees.office_id = offices.id 
 JOIN branchs 
 ON offices.branch_id = branchs.id;
+
+/*
+     1-7
+*/
+SELECT branchs.city, AVG(employees.salary)
+FROM employees 
+JOIN offices 
+on employees.office_id = offices.id 
+JOIN branchs 
+ON offices.branch_id = branchs.id
+WHERE branchs.city = 'اصفهان';
+
+/*
+     1-8
+*/
+SELECT offices.name, COUNT(employees.id)
+FROM employees 
+RIGHT JOIN offices 
+on employees.office_id = offices.id
+GROUP BY offices.name;
+
+/*
+     1-9
+*/
+SELECT branchs.name, offices.name, COUNT(employees.id) AS employees
+FROM branchs
+JOIN offices
+ON branchs.id = offices.branch_id
+LEFT JOIN employees
+ON offices.id = employees.office_id
+WHERE branchs.city = 'اصفهان'
+GROUP BY offices.name;
+
+/*
+     1-10
+*/
+SELECT branchs.name
+FROM branchs
+JOIN offices
+ON branchs.id = offices.branch_id
+JOIN employees
+ON offices.id = employees.office_id
+HAVING COUNT(employees.id) < 10;
