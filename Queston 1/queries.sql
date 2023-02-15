@@ -35,3 +35,52 @@ CREATE TABLE employees (
     salary int NOT NULL,
     FOREIGN KEY (office_id) REFERENCES offices(id)
 );
+
+/*
+     1-1
+*/
+SELECT name 
+FROM employees 
+WHERE salary < 1000;
+
+/*
+     1-2
+*/
+SELECT employees.name, offices.name 
+FROM employees, offices 
+WHERE employees.office_id = offices.id;
+
+/*
+     1-3
+*/
+SELECT offices.name, AVG(employees.salary) 
+FROM offices 
+JOIN employees 
+WHERE employees.office_id = offices.id 
+GROUP BY offices.name;
+
+/*
+     1-4
+*/
+SELECT offices.name 
+FROM branchs, offices 
+WHERE branchs.id = offices.branch_id 
+AND branchs.city = 'اصفهان';
+
+/*
+     1-5
+*/
+SELECT branchs.name, COUNT(offices.id) 
+FROM branchs, offices 
+WHERE branchs.id = offices.branch_id 
+GROUP BY branchs.name;
+
+/*
+     1-6
+*/
+SELECT employees.name, branchs.name 
+FROM employees 
+JOIN offices 
+on employees.office_id = offices.id 
+JOIN branchs 
+ON offices.branch_id = branchs.id;
